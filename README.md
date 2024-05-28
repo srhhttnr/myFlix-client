@@ -7,3 +7,8 @@ This project is the client-side to the application called "myFlix", which has a 
 
 2. Run Parcel
    parcel src/index.html
+
+3. Create components
+   MainView
+   MovieView
+   MovieCard
