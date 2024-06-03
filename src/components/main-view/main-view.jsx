@@ -1,34 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([
-    {
-      id: 1,
-      Title: 'Barbie',
-      Director: 'Greta Gerwig',
-      Genre: 'Comedic Fantasy',
-      ImageURL: 'https://upload.wikimedia.org/wikipedia/en/0/0b/Barbie_2023_poster.jpg'
-    },
-    {
-      id: 2,
-      Title: 'Pride and Prejudice',
-      Director: 'Joe Wright',
-      Genre: 'Romantic Drama',
-      ImageURL: 'https://upload.wikimedia.org/wikipedia/en/0/03/Prideandprejudiceposter.jpg'
-    },
-    {
-      id: 3,
-      Title: 'Step Brothers',
-      Director: 'Adam McKay',
-      Genre: 'Comedy',
-      ImageURL: 'https://upload.wikimedia.org/wikipedia/en/d/d9/StepbrothersMP08.jpg' 
-    }
-  ]);
-
+  const [movies, setMovies] = useState([]);
 
   const [selectedMovie, setSelectedMovie] = useState(null);
+
+  useEffect(() => {
+    fetch("https://my-movies-db-cafa6b5db6b8.herokuapp.com/movies")
+      .then((response) => response.json())
+      .then((movies) => {
+        const moviesFromApi = movies.map((movie) => {
+          return {
+            id: movie._id,
+            title: movie.Title,
+            description: movie.Description,
+            director: movie.Director,
+            genre: movie.Genre,
+            releaseDate: movie.Release,
+            imagePath: movie.Image,
+            featured: movie.Featured
+          }
+        });
+        setMovies(moviesFromApi);
+      })
+  }, []);
 
   if (selectedMovie) {
     return (
