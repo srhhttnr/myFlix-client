@@ -27339,7 +27339,7 @@ MovieCard.propTypes = {
         title: (0, _propTypesDefault.default).string.isRequired,
         releaseDate: (0, _propTypesDefault.default).string.isRequired,
         description: (0, _propTypesDefault.default).string.isReequired,
-        genre: Proptypes.string.isRequired,
+        genre: (0, _propTypesDefault.default).string.isRequired,
         director: (0, _propTypesDefault.default).string.isRequired,
         featured: (0, _propTypesDefault.default).bool
     }).isRequired,
