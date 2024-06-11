@@ -12,3 +12,5 @@ This project is the client-side to the application called "myFlix", which has a 
    MainView
    MovieView
    MovieCard
+   LoginView
+   SignupView
