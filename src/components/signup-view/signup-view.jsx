@@ -14,7 +14,7 @@ export const SignupView = () => {
       Password: password,
       Email: email,
       Birthday: birthday
-    }
+    };
 
     fetch("https://my-movies-db-cafa6b5db6b8.herokuapp.com/users", {
         method: "POST",
