@@ -2955,10 +2955,11 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _client = require("react-dom/client");
 var _mainView = require("./components/main-view/main-view");
 var _indexScss = require("./index.scss");
+//import Container from 'react-bootstrap/Container';
 const App = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
         fileName: "src/index.jsx",
-        lineNumber: 8,
+        lineNumber: 10,
         columnNumber: 10
     }, undefined);
 };
@@ -2967,7 +2968,7 @@ const container = document.querySelector("#root");
 const root = (0, _client.createRoot)(container);
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "src/index.jsx",
-    lineNumber: 13,
+    lineNumber: 15,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -28604,25 +28605,25 @@ const SignupView = ()=>{
     const [birthday, setBirthday] = (0, _react.useState)("");
     const handleSubmit = (event)=>{
         event.preventDefault();
-        const data1 = {
+        const data = {
             Username: username,
             Password: password,
             Email: email,
             Birthday: birthday
         };
+        fetch("https://my-movies-db-cafa6b5db6b8.herokuapp.com/users", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((response)=>{
+            if (response.ok) {
+                alert("Signup successful");
+                window.location.reload();
+            } else alert("Signup failed");
+        });
     };
-    fetch("https://my-movies-db-cafa6b5db6b8.herokuapp.com/users", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then((response)=>{
-        if (response.ok) {
-            alert("Signup successful");
-            window.location.reload();
-        } else alert("Signup failed");
-    });
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
         onSubmit: handleSubmit,
         children: [
