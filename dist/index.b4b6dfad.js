@@ -26508,7 +26508,7 @@ const MainView = ()=>{
                         md: 3,
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                             movie: movie,
-                            onMovieClick: (newSelectedMovie)=>{
+                            onClick: (newSelectedMovie)=>{
                                 setSelectedMovie(newSelectedMovie);
                             }
                         }, void 0, false, {
