@@ -24,7 +24,7 @@ export const MainView = () => {
       .then((response) => response.json())
       .then((movies) => {
         const moviesFromApi = movies.map((movie) => {
-          return {
+          return ({
             id: movie._id,
             title: movie.Title,
             description: movie.Description,
@@ -33,7 +33,7 @@ export const MainView = () => {
             releaseDate: movie.Release,
             imagePath: movie.Image,
             featured: movie.Featured
-          }
+          })
         });
         setMovies(moviesFromApi);
       }).catch((e) => {
@@ -51,7 +51,6 @@ export const MainView = () => {
                 setToken(token);
               }}
             />
-            or
             <SignupView />
           </Col>
         ) : selectedMovie ? (
@@ -66,11 +65,19 @@ export const MainView = () => {
           <div>The list is empty!</div>
         ) : (
           <>
+            <Button 
+              onClick={() => { 
+                setUser(null); 
+                setToken(null); 
+                localStorage.clear(); 
+              }}
+              >Logout
+            </Button>
             {movies.map((movie) => (
               <Col className="mb-5" key={movie.id} md={3}>
                 <MovieCard
                   movie={movie}
-                  onClick={(newSelectedMovie) => {
+                  onMovieClick={(newSelectedMovie) => {
                     setSelectedMovie(newSelectedMovie);
                   }}
                 />
@@ -78,14 +85,6 @@ export const MainView = () => {
             ))}
           </>
         )}
-        <Button 
-          onClick={() => { 
-            setUser(null); 
-            setToken(null); 
-            localStorage.clear(); 
-          }}
-          >Logout
-        </Button>
       </Row>
   );
 
