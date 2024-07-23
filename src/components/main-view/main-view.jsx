@@ -16,9 +16,7 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
-    if (!token) {
-      return;
-    }
+    if (!token) return;
 
     fetch("https://my-movies-db-cafa6b5db6b8.herokuapp.com/movies", {
       headers: { Authorization: `Bearer ${token}` }
@@ -38,7 +36,9 @@ export const MainView = () => {
           }
         });
         setMovies(moviesFromApi);
-      })
+      }).catch((e) => {
+        console.log(e);
+      });
   }, [token]);
 
   return (
@@ -66,7 +66,6 @@ export const MainView = () => {
           <div>The list is empty!</div>
         ) : (
           <>
-            <Button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</Button>
             {movies.map((movie) => (
               <Col className="mb-5" key={movie.id} md={3}>
                 <MovieCard
@@ -79,6 +78,14 @@ export const MainView = () => {
             ))}
           </>
         )}
+        <Button 
+          onClick={() => { 
+            setUser(null); 
+            setToken(null); 
+            localStorage.clear(); 
+          }}
+          >Logout
+        </Button>
       </Row>
   );
 
