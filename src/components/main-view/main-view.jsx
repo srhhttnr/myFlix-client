@@ -7,7 +7,8 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 // import Button from "react-bootstrap/Button";
-import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { ProfileView } from "../profile-view/profile-view";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -86,7 +87,7 @@ export const MainView = () => {
             }
           />
           <Route
-            path="movies/:movieId"
+            path="/movies/:movieId"
             element={
               <>
                 {!user ? (
@@ -105,6 +106,22 @@ export const MainView = () => {
             }
           />
           <Route
+            path="/profile"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <Col md={8} >
+                    <ProfileView 
+                      movies={movies}
+                    />
+                  </Col>
+                )}
+              </>
+            }
+          />
+          <Route
             path="/"
             element={
               <>
@@ -114,14 +131,6 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <>
-                    {/* <Button 
-                      onClick={() => { 
-                        setUser(null); 
-                        setToken(null); 
-                        localStorage.clear(); 
-                      }}
-                      >Logout
-                    </Button> */}
                     {movies.map((movie) => (
                       <Col className="mb-5" key={movie.id} md={3}>
                         <MovieCard movie={movie} />
