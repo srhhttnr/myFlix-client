@@ -1,9 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const MovieCard = ({ movie }) => {
+  const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const addFavMovie = () => {
+    fetch(`https://my-movies-db-cafa6b5db6b8.herokuapp.com/users/${user.Username}/movies/${movie.id}`, {
+      "method": "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    })
+      .then((response) => response.json())
+      .then(movies => {
+        alert("Movie added");
+      })
+      .catch(e => console.log(e));
+  }
+
+  const removeFavMovie = () => {
+    fetch(`https://my-movies-db-cafa6b5db6b8.herokuapp.com/users/${user.Username}/movies/${movie.id}`, {
+      "method": "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    })
+      .then((response) => response.json())
+      .then(movies => {
+        alert("Movie deleted")
+      })
+      .catch(e => console.log(e));
+  }
+
   return (
     <Card className="h-100">
       <Card.Img variant="top" src={movie.imagePath} />
@@ -11,8 +44,16 @@ export const MovieCard = ({ movie }) => {
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>{movie.director.Name}</Card.Text>
         <Link to={`/movies/${encodeURIComponent(movie.id)}`} >
-          <Button variant="link">Open</Button>
+          <Button variant="primary">
+            Open
+          </Button>
         </Link>
+        <Button onClick={addFavMovie}>
+          Add to Favorites
+        </Button>
+        <Button onClick={removeFavMovie}>
+          Remove from Favorites
+        </Button>
       </Card.Body>
     </Card>
   );
