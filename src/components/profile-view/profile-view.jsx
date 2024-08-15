@@ -8,10 +8,10 @@ export const ProfileView = ({ movies }) => {
     return localUser.FavoriteMovies.includes(movie.id);
   });
 
-  const [username, setUsername] = useState(localUser.Username);
-  const [password, setPassword] = useState(localUser.Password);
-  const [email, setEmail] = useState(localUser.Email);
-  const [birthday, setBirthday] = useState(localUser.Birthday);
+  const [username, setUsername] = useState(localUser.Username || "");
+  const [password, setPassword] = useState(localUser.Password || "");
+  const [email, setEmail] = useState(localUser.Email || "");
+  const [birthday, setBirthday] = useState(localUser.Birthday || "01/01/0001");
 
   // const deleteUser = (event) => {
   //   event.preventDefault();
@@ -110,8 +110,7 @@ export const ProfileView = ({ movies }) => {
       <Form.Group controlId="formUsername">
         <Form.Label>Username:</Form.Label>
         <Form.Control
-        
-        type="text"
+          type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
