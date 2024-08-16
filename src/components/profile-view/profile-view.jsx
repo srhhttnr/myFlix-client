@@ -158,9 +158,9 @@ export const ProfileView = ({ movies }) => {
       </div>
       {
         localUser && favMovies.map((movie) => {
-          <MovieCard 
+          return (<MovieCard 
             movie={movie}
-          />
+          />)
         })
       }
     </Form>
