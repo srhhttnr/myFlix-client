@@ -18,6 +18,9 @@ export const MovieCard = ({ movie }) => {
       .then((response) => response.json())
       .then(movies => {
         alert("Movie added");
+        const currentUser = JSON.parse(localStorage.getItem("user"));
+        currentUser.FavoriteMovies.push(movie.id);
+        localStorage.setItem("user", JSON.stringify(currentUser));
       })
       .catch(e => console.log(e));
   }
@@ -32,7 +35,10 @@ export const MovieCard = ({ movie }) => {
     })
       .then((response) => response.json())
       .then(movies => {
-        alert("Movie deleted")
+        alert("Movie deleted");
+        const currentUser = JSON.parse(localStorage.getItem("user"));
+        currentUser.FavoriteMovies.pull(movie.id);
+        localStorage.removeItem("user", JSON.stringify(currentUser));
       })
       .catch(e => console.log(e));
   }
