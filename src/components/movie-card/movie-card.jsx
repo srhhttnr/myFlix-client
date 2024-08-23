@@ -37,8 +37,9 @@ export const MovieCard = ({ movie }) => {
       .then(movies => {
         alert("Movie deleted");
         const currentUser = JSON.parse(localStorage.getItem("user"));
-        currentUser.FavoriteMovies.pull(movie.id);
-        localStorage.removeItem("user", JSON.stringify(currentUser));
+        const indexItem = currentUser.FavoriteMovies.indexOf(movie.id);
+        currentUser.FavoriteMovies.splice(indexItem, 1);
+        localStorage.setItem("user", JSON.stringify(currentUser));
       })
       .catch(e => console.log(e));
   }
