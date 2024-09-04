@@ -154,7 +154,9 @@ export const ProfileView = ({ movies }) => {
       </Button>
 
       <div>
-        <p>My Favorite Movies:</p>
+        <p style={{ fontWeight: 'bold' }}>
+          <br />My Favorite Movies:
+        </p>
       </div>
       {
         localUser && favMovies.map((movie) => {
