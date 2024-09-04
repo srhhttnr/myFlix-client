@@ -45,20 +45,20 @@ export const MovieCard = ({ movie }) => {
   }
 
   return (
-    <Card className="h-100">
-      <Card.Img variant="top" src={movie.imagePath} />
-      <Card.Body>
-        <Card.Title>{movie.title}</Card.Title>
-        <Card.Text>{movie.director.Name}</Card.Text>
+    <Card className="card h-100 text-white bg-dark mb-3 d-inline-block align-content-center">
+      <Card.Img  variant="top" src={movie.imagePath} />
+      <Card.Body className="text-center">
+        <Card.Title className="card-title">{movie.title}</Card.Title>
+        <Card.Text className="card-text">{movie.director.Name}</Card.Text>
         <Link to={`/movies/${encodeURIComponent(movie.id)}`} >
-          <Button variant="primary">
+          <Button className="btn-light">
             Open
           </Button>
         </Link>
-        <Button onClick={addFavMovie}>
+        <Button className="btn-light" onClick={addFavMovie}>
           Add to Favorites
         </Button>
-        <Button onClick={removeFavMovie}>
+        <Button className="btn-light" onClick={removeFavMovie}>
           Remove from Favorites
         </Button>
       </Card.Body>
