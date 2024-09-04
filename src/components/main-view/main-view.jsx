@@ -54,6 +54,8 @@ export const MainView = () => {
             path="/login"
             element={
               <>
+                <div className="text-center" style={{ fontWeight: 'bold' }}>welcome to myFlix</div>
+
                 {user ? (
                   <Navigate to="/" />
                 ) : (
@@ -73,6 +75,8 @@ export const MainView = () => {
             path="/signup"
             element={
               <>
+                <div className="text-center" style={{ fontWeight: 'bold' }}>welcome to myFlix</div>
+
                 {user ? (
                   <Navigate to="/" />
                 ) : (
