@@ -3,40 +3,40 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 
 export const MovieView = ({ movies }) => {
   const { movieId } = useParams();
-
   const movie = movies.find((m) => m.id === movieId);
 
   return (
-    <Row className="justify-content-md-center">
-      <Col md={{ span: 6, offset: 3 }}>
+    <Row className="text-white bg-dark d-flex h-auto float-md-left">
+      <Col>
         <img src={movie.imagePath} />
       </Col>
-      <Col md={{ span: 6, offset: 3 }}>
-        <span>Title: </span>
+      <Col>
+        <span style={{ fontWeight: 'bold' }}>Title: </span>
         <span>{movie.title}</span>
       </Col>
-      <Col md={{ span: 6, offset: 3 }}>
-        <span>Release Date: </span>
+      <Col>
+        <span style={{ fontWeight: 'bold' }}>Release Date: </span>
         <span>{movie.releaseDate}</span>
       </Col>
-      <Col md={{ span: 6, offset: 3 }}>
-        <span>Description: </span>
-        <span>{movie.description}</span>
-      </Col>
-      <Col md={{ span: 6, offset: 3 }}>
-        <span>Genre: </span>
-        <span>{movie.genre.Name}</span>
-      </Col>
-      <Col md={{ span: 6, offset: 3 }}>
-        <span>Director: </span>
+      <Col>
+        <span style={{ fontWeight: 'bold' }}>Director: </span>
         <span>{movie.director.Name}</span>
       </Col>
-      <Col md={{ span: 6, offset: 3 }}>
+      <Col>
+        <span style={{ fontWeight: 'bold' }}>Genre: </span>
+        <span>{movie.genre.Name}</span>
+      </Col>
+      <Col className="text-center col-md-10">
+        <span style={{ fontWeight: 'bold' }}>Description: </span>
+        <span>{movie.description}</span>
+      </Col>
+      <Col>
         <Link to={`/`}>
-          <Button className="back-button">Back</Button>
+          <Button className="btn-light">Back</Button>
         </Link>
       </Col>
     </Row>
