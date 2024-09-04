@@ -78,9 +78,13 @@ export const SignupView = () => {
         />
       </Form.Group>
       
-      <Button variant="primary" type="submit">
+      <Button variant="dark" type="submit">
         Submit
       </Button>
+
+      <a href="/login"> 
+        <br /> Already have an account?
+      </a>
     </Form>
   );
 }
