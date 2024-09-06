@@ -149,12 +149,14 @@ export const ProfileView = ({ movies }) => {
         />
       </Form.Group>
 
-      <Button variant="primary" type="submit">
+      <Button variant="dark" type="submit">
         Update User Information
       </Button>
 
       <div>
-        <p>My Favorite Movies:</p>
+        <p style={{ fontWeight: 'bold' }}>
+          <br />My Favorite Movies:
+        </p>
       </div>
       {
         localUser && favMovies.map((movie) => {
