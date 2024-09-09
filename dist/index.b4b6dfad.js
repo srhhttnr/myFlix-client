@@ -43177,7 +43177,7 @@ var _react = require("react");
 var _reactBootstrap = require("react-bootstrap");
 var _movieCard = require("../movie-card/movie-card");
 var _s = $RefreshSig$();
-const ProfileView = ()=>{
+const ProfileView = (movies)=>{
     _s();
     const localUser = JSON.parse(localStorage.getItem("user"));
     const storedToken = localStorage.getItem("token");
