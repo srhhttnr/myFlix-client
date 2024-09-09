@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button, Form, Container } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
 
-export const ProfileView = () => {
+export const ProfileView = ( movies ) => {
   const localUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
   const [user, setUser] = useState(localUser ? localUser : null);  
