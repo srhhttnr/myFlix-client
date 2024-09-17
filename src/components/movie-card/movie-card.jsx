@@ -51,14 +51,14 @@ export const MovieCard = ({ movie }) => {
         <Card.Title className="card-title">{movie.title}</Card.Title>
         <Card.Text className="card-text">{movie.director.Name}</Card.Text>
         <Link to={`/movies/${encodeURIComponent(movie.id)}`} >
-          <Button className="btn-light">
+          <Button className="btn-light" style={{ cursor: "pointer" }}>
             Open
           </Button>
         </Link>
-        <Button className="btn-light" onClick={addFavMovie}>
+        <Button className="btn-light" onClick={addFavMovie} style={{ cursor: "pointer" }}>
           Add to Favorites
         </Button>
-        <Button className="btn-light" onClick={removeFavMovie}>
+        <Button className="btn-light" onClick={removeFavMovie} style={{ cursor: "pointer" }}>
           Remove from Favorites
         </Button>
       </Card.Body>
