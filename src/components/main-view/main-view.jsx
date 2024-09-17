@@ -12,9 +12,11 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  const [user, setUser] = useState(storedUser? storedUser : null);
-  const [token, setToken] = useState(storedToken? storedToken : null);
+  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredMovies, setFilteredMovies] = useState(movies);
 
   useEffect(() => {
     if (!token) return;
@@ -40,12 +42,24 @@ export const MainView = () => {
       }).catch(e => console.log(e));
   }, [token]);
 
+  useEffect(() => {
+    setFilteredMovies(
+      movies.filter((movie) => {
+        movie.Title.toLowerCase().includes(searchQuery.toLowerCase())
+      })
+    )
+  }, [searchQuery, movies]);
+
   return (
     <BrowserRouter>
       <NavigationBar 
         user={user}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
         onLoggedOut={() => {
-          setUser(null)
+          setUser(null);
+          setToken(null);
+          localStorage.clear();
         }}
       />
       <Row className="justify-content-md-center"> 
@@ -97,10 +111,7 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <Col md={8} style={{ border: "1px solid black" }}>
-                    <MovieView
-                      style={{ border: "1px solid green" }}
-                      movies={movies}
-                    />
+                    <MovieView movies={movies}/>
                   </Col>
                 )}
               </>
@@ -115,7 +126,9 @@ export const MainView = () => {
                 ) : (
                   <Col md={8} >
                     <ProfileView 
+                      user={user}
                       movies={movies}
+                      token={token}
                     />
                   </Col>
                 )}
@@ -132,7 +145,7 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
+                    {filteredMovies.map((movie) => (
                       <Col className="mb-5" key={movie.id} md={3}>
                         <MovieCard movie={movie} />
                       </Col>
@@ -148,6 +161,4 @@ export const MainView = () => {
       </Row>
     </BrowserRouter>
   );
-
-
 };
