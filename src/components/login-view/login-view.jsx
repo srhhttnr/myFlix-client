@@ -60,11 +60,11 @@ export const LoginView = ({ onLoggedIn }) => {
           required
         />
       </Form.Group>
-      <Button variant="dark" type="submit">
+      <Button variant="dark" type="submit" style={{ cursor: "pointer" }}>
         Submit
       </Button>
 
-      <a href="/signup"> 
+      <a href="/signup" style={{ cursor: "pointer" }}> 
         <br /> Don't have an account?
       </a>
     </Form>
