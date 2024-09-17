@@ -1,20 +1,17 @@
 import { useState, useEffect } from "react";
-import { Button, Form, Container } from "react-bootstrap";
-import { MovieCard } from "../movie-card/movie-card";
+import { Button, Form, Container, Row } from "react-bootstrap";
+import { FavoriteMovies } from "./favorite-movies";
 
-export const ProfileView = ( movies ) => {
-  const localUser = JSON.parse(localStorage.getItem("user"));
+export const ProfileView = () => {
+  const currentUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  const [user, setUser] = useState(localUser ? localUser : null);  
+  const [user, setUser] = useState(currentUser ? currentUser : null);  
   const [token, setToken] = useState(storedToken ? storedToken : null);
-  const favMovies = movies.filter((movie) => {
-    return localUser.FavoriteMovies.includes(movie.id);
-  });
 
-  const [username, setUsername] = useState(localUser.Username || "");
-  const [password, setPassword] = useState(localUser.Password || "");
-  const [email, setEmail] = useState(localUser.Email || "");
-  const [birthday, setBirthday] = useState(localUser.Birthday || "01/01/0001");
+  const [username, setUsername] = useState(currentUser.Username || "");
+  const [password, setPassword] = useState(currentUser.Password || "");
+  const [email, setEmail] = useState(currentUser.Email || "");
+  const [birthday, setBirthday] = useState(currentUser.Birthday || "01/01/0001");
 
   useEffect(() => {
     if (!user) {
@@ -24,15 +21,15 @@ export const ProfileView = ( movies ) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-        }
-      )
+        })
         .then((response) => response.json())
         .then((data) => {
-          setUser(data); // Set user state with fetched data
+          setUser(data);
+          setToken(token);
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
-  }, [user, token, localUser.Username]);
+  }, [user, token, currentUser.Username]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,7 +41,7 @@ export const ProfileView = ( movies ) => {
       Birthday: birthday
     };
 
-    fetch("https://my-movies-db-cafa6b5db6b8.herokuapp.com/users", {
+    fetch(`https://my-movies-db-cafa6b5db6b8.herokuapp.com/users/${user.Username}`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {
@@ -65,7 +62,7 @@ export const ProfileView = ( movies ) => {
   const handleDeleteUser = (event) => {
     event.preventDefault();
 
-    fetch("https://my-movies-db-cafa6b5db6b8.herokuapp.com/users", {
+    fetch(`https://my-movies-db-cafa6b5db6b8.herokuapp.com/users/${user.Username}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,        
@@ -84,79 +81,69 @@ export const ProfileView = ( movies ) => {
     });
   }
 
-  console.log(favMovies);
-
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formUsername">
-          <Form.Label>Username:</Form.Label>
-          <Form.Control
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            minLength="3"
-          />
-        </Form.Group>
+      <Row>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="formUsername">
+            <Form.Label>Username:</Form.Label>
+            <Form.Control
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              minLength="3"
+            />
+          </Form.Group>
 
-        <Form.Group controlId="formPassword">
-          <Form.Label>Password:</Form.Label>
-          <Form.Control
-            type="text"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            minLength="3"
-          />
-        </Form.Group>
+          <Form.Group controlId="formPassword">
+            <Form.Label>Password:</Form.Label>
+            <Form.Control
+              type="text"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength="3"
+            />
+          </Form.Group>
 
-        <Form.Group controlId="formEmail">
-          <Form.Label>Email:</Form.Label>
-          <Form.Control
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </Form.Group>
+          <Form.Group controlId="formEmail">
+            <Form.Label>Email:</Form.Label>
+            <Form.Control
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-        <Form.Group controlId="formBirthday">
-          <Form.Label>Birthday:</Form.Label>
-          <Form.Control
-            type="date"
-            value={birthday}
-            onChange={(e) => setBirthday(e.target.value)}
-            required
-          />
-        </Form.Group>
+          <Form.Group controlId="formBirthday">
+            <Form.Label>Birthday:</Form.Label>
+            <Form.Control
+              type="date"
+              value={birthday}
+              onChange={(e) => setBirthday(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-        <Button variant="dark" type="submit">
-          Update User Information
+          <Button variant="dark" type="submit" style={{ cursor: "pointer" }}>
+            Update User Information
+          </Button>
+        </Form>
+
+        <Button 
+          variant="dark"
+          style={{ cursor: "pointer" }}
+          onClick={handleDeleteUser}
+        >
+          Delete Account
         </Button>
+      </Row>
 
-      </Form>
-
-      <Button 
-        variant="dark"
-        style={{ cursor: "pointer" }}
-        onClick={handleDeleteUser}
-      >
-        Delete Account
-      </Button>
-
-      <div>
-        <p style={{ fontWeight: 'bold' }}>
-          <br />My Favorite Movies:
-        </p>
-      </div>
-      {
-        localUser && favMovies.map((movie) => {
-          return (<MovieCard 
-            movie={movie}
-          />)
-        })
-      }
+      <Row>
+        <FavoriteMovies/>
+      </Row>
     </Container>
   )
 }
