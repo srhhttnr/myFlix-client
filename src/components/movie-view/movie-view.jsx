@@ -35,7 +35,7 @@ export const MovieView = ({ movies }) => {
       </Col>
       <Col>
         <Link to={`/`}>
-          <Button className="btn-light">Back</Button>
+          <Button className="btn-light" style={{ cursor: "pointer" }}>Back</Button>
         </Link>
       </Col>
     </Row>
