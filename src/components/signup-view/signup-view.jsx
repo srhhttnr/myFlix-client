@@ -78,11 +78,11 @@ export const SignupView = () => {
         />
       </Form.Group>
       
-      <Button variant="dark" type="submit">
+      <Button variant="dark" type="submit" style={{ cursor: "pointer" }}>
         Submit
       </Button>
 
-      <a href="/login"> 
+      <a href="/login" style={{ cursor: "pointer" }}> 
         <br /> Already have an account?
       </a>
     </Form>
