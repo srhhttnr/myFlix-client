@@ -1,8 +1,14 @@
-import { ProfileView } from "../profile-view/profile-view";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { useState } from "react";
+import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export const NavigationBar = ({ user, onLoggedOut }) => {
+export const NavigationBar = ({ user, movies, onLoggedOut }) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  const handleSearchQuery = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <Navbar className="navbar navbar-light" expand="lg">
       <Container>
@@ -33,6 +39,19 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
                 <Nav.Link onClick={onLoggedOut} to="/">
                   Logout
                 </Nav.Link>
+
+                <Form className="d-flex">
+                  <Form.Control
+                    id="search-bar"
+                    className="me-3"
+                    type="search"
+                    value={searchQuery}
+                    placeholder="Search movie title ..."
+                    aria-label="search bar"
+                    onChange={(e) => handleSearchQuery}
+                  />
+                  <Button className="btn-dark" style={{ cursor: "pointer" }} onClick={handleSearchQuery}>Search</Button>
+                </Form>
               </>
             )}
           </Nav>
